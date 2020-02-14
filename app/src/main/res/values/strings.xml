@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ProgAndro</string>
+    <string name="welcome">Welcome To home Friends</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="not_a_member">Not A member? Join now</string>
 </resources>
