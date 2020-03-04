@@ -1,17 +1,12 @@
 package com.example.progandro;
 
 import android.os.Bundle;
-import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 
 public class HomePageActivity extends AppCompatActivity {
-    private View view;
-    private NotificationManagerCompat notificationManagerCompat;
-    private static final String TAG = "Activities";
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -25,8 +20,5 @@ public class HomePageActivity extends AppCompatActivity {
         tabLayout.getTabAt(0);
         tabLayout.getTabAt(1);
         tabLayout.getTabAt(2);
-
-        notificationManagerCompat = NotificationManagerCompat.from(this);
-
     }
 }
