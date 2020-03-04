@@ -5,4 +5,9 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="not_a_member">Not A member? Join now</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="nama">Rut Febrianty 71170225</string>
+    <string name="android">Android</string>
 </resources>

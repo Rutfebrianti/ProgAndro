@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     private EditText email;
     private EditText password;
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) { //menyimpan instance
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login);
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
@@ -34,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void signIn(){
         if (email.getText().toString().equals("rutfebrianty@gmail.com") && password.getText().toString().equals("12345")){
-            Intent home = new Intent(MainActivity.this, Home.class);
+            Intent home = new Intent(Login.this, HomePageActivity.class);
             startActivity(home);
-            Toast.makeText(MainActivity.this, "Welcome to homepage", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Login.this, "Welcome to homepage", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(MainActivity.this, "Your wrong human", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Login.this, "Your wrong human", Toast.LENGTH_SHORT).show();
         }
     }
 
