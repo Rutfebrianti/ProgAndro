@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".HomePageActivity"/>
         <activity android:name=".AboutActivity"/>
+        <activity android:name=".SignUp"/>
+
     </application>
 
 </manifest>

@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.303" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/daftar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/not_a_member"

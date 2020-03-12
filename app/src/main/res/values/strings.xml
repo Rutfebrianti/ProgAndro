@@ -10,4 +10,6 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="nama">Rut Febrianty 71170225</string>
     <string name="android">Android</string>
+    <string name="greet">Selamat Datang</string>
+    <string name="logout">logout</string>
 </resources>

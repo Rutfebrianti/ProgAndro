@@ -12,28 +12,19 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         tools:ignore="MissingConstraints">
 
-        <TextView
-            android:id="@+id/judul"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:minHeight="?actionBarSize"
-            android:padding="16dp"
-            android:background="@color/colorSeaGreen"
-            android:text="@string/android"/>
+            android:layout_height="match_parent"
+            app:layout_editor_absoluteX="-16dp"
+            app:layout_editor_absoluteY="-36dp">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_editor_absoluteX="-16dp"
-        app:layout_editor_absoluteY="-36dp">
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab"
-            android:background="@color/colorSeaGreen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </androidx.viewpager.widget.ViewPager>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorSeaGreen" />
+
+        </androidx.viewpager.widget.ViewPager>
     </com.google.android.material.appbar.AppBarLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
