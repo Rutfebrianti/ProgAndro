@@ -1,6 +1,5 @@
 package com.example.progandro;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,31 +14,40 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Login extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
-    public static final String MY_PREFERENCES = "MyPrefs";
+    public static final String LOGIN_PREF = "Login";
+    public static final String REMEMBER_PREF = "GetIn";
 
     DatabaseHelper databaseHelper;
 
     private EditText email;
     private EditText password;
+
+    String emailMasuk;
+    String passwordMasuk;
+
     Button buttonLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { //menyimpan instance
+
+        sharedPreferences = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
+        String check = sharedPreferences.getString(REMEMBER_PREF, "");
+
+        if (check.equals("true")) {
+            startActivity(new Intent(Login.this, HomePageActivity.class));
+            finish();
+        }
+        databaseHelper = new DatabaseHelper(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-
-        databaseHelper = new DatabaseHelper(this);
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.login);
         TextView daftar = findViewById(R.id.daftar);
 
-        sharedPreferences = getSharedPreferences(MY_PREFERENCES, MODE_PRIVATE);
 
-        if (sharedPreferences.contains("email") && sharedPreferences.contains("password")) {
-            startActivity(new Intent(Login.this, HomePageActivity.class));
-        }
 
         daftar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,35 +59,25 @@ public class Login extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailMasuk = email.getText().toString();
-                String passwordMasuk = password.getText().toString();
+                emailMasuk = email.getText().toString();
+                passwordMasuk = password.getText().toString();
                 Boolean checkEmailPass = databaseHelper.emailPassword(emailMasuk, passwordMasuk);
-                if (checkEmailPass==true) {
-                    startActivity(new Intent(Login.this, HomePageActivity.class));
+                if (checkEmailPass==true){
                     Toast.makeText(getApplicationContext(), "Login Succesfully", Toast.LENGTH_SHORT).show();
 
-                  Bundle extras = new Bundle();
-                  extras.putString("ingat", "true");
-                  Intent intent = new Intent(Login.this, HomePageActivity.class);
+                    SharedPreferences preferences = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(REMEMBER_PREF, "true");
+                    editor.apply();
 
-
-                //  Intent intent = new Intent(Login.this,HomePageActivity.class);
-                 //   startActivity(intent);
+                    startActivity(new Intent(Login.this, HomePageActivity.class));
+                    finish();
                 }
-                else
+                else{
                     Toast.makeText(getApplicationContext(),"Login Failed", Toast.LENGTH_SHORT).show();
-
+                }
             }
         });
     }
-
-        private void broadcaster(){
-        Intent broadcastIntent = new Intent("MY_ACTION");
-        broadcastIntent.setComponent(new ComponentName(getPackageName(),
-                "com.example.tugas.MyBroadcastReceiver"));
-
-        getApplicationContext().sendBroadcast(broadcastIntent);
-        }
-
 
 }

@@ -21,7 +21,7 @@ public class CheckWiFi extends Application {
             NotificationChannel on = new NotificationChannel(
                     onWiFi,
                     "WiFi is On",
-                    NotificationManager.IMPORTANCE_HIGH);
+                    NotificationManager.IMPORTANCE_HIGH);//importance high diprioritas tingkat tinggi
             on.setDescription("WiFi is On");
 
             NotificationChannel off = new NotificationChannel(
