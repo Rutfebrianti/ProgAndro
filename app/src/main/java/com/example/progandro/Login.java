@@ -1,5 +1,6 @@
 package com.example.progandro;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -56,6 +57,14 @@ public class Login extends AppCompatActivity {
                 if (checkEmailPass==true) {
                     startActivity(new Intent(Login.this, HomePageActivity.class));
                     Toast.makeText(getApplicationContext(), "Login Succesfully", Toast.LENGTH_SHORT).show();
+
+                  Bundle extras = new Bundle();
+                  extras.putString("ingat", "true");
+                  Intent intent = new Intent(Login.this, HomePageActivity.class);
+
+
+                //  Intent intent = new Intent(Login.this,HomePageActivity.class);
+                 //   startActivity(intent);
                 }
                 else
                     Toast.makeText(getApplicationContext(),"Login Failed", Toast.LENGTH_SHORT).show();
@@ -63,6 +72,14 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+        private void broadcaster(){
+        Intent broadcastIntent = new Intent("MY_ACTION");
+        broadcastIntent.setComponent(new ComponentName(getPackageName(),
+                "com.example.tugas.MyBroadcastReceiver"));
+
+        getApplicationContext().sendBroadcast(broadcastIntent);
+        }
 
 
 }
