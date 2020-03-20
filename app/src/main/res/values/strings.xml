@@ -12,4 +12,6 @@
     <string name="android">Android</string>
     <string name="greet">Selamat Datang</string>
     <string name="logout">logout</string>
+    <string name="stop_job">Stop Job</string>
+    <string name="start_job">Start Job</string>
 </resources>

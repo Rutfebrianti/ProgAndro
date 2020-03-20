@@ -1,11 +1,15 @@
 package com.example.progandro;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -88,5 +92,26 @@ public class HomePageActivity extends AppCompatActivity {
                 .build();
 
         notificationManagerCompat.notify(2,notification);
+    }
+    //Job Schedulling
+    public void scheduleJob(View view){
+        ComponentName componentName = new ComponentName(this, MyJobService.class);
+        JobInfo jobInfo = new JobInfo.Builder(123,componentName)
+                .setPeriodic(15 * 60 * 1000) //set every 15 minutes
+                .build();
+
+        JobScheduler jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        int resultCode = jobScheduler.schedule(jobInfo);
+        if(resultCode == JobScheduler.RESULT_SUCCESS){
+            Log.d(TAG,"Job Schedulling");
+        }
+        else{
+            Log.d(TAG,"Job Schedulling failed");
+        }
+    }
+    public void cancelJob(View view){
+        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        scheduler.cancel(123);
+        Log.d(TAG,"Job cancelled");
     }
 }

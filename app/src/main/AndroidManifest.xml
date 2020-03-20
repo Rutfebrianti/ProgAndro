@@ -3,9 +3,9 @@
     package="com.example.progandro">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> //use permission utk status internet
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> //use permission utk status wifi
+    <uses-permission android:name="android.permission.INTERNET" /> //use permission utk akses internet
 
     <application
         android:name=".CheckWiFi"
@@ -25,7 +25,8 @@
         <activity android:name=".HomePageActivity"/>
         <activity android:name=".AboutActivity"/>
         <activity android:name=".SignUp"/>
-
+        <service android:name=".MyJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 
 </manifest>
