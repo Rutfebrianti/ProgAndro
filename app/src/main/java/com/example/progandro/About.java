@@ -15,7 +15,6 @@ public class About extends Fragment {
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup viewGroup, @Nullable Bundle savedInstanceState) {
             super.onCreateView(inflater, viewGroup, savedInstanceState);
-            System.out.println("tes");
             return inflater.inflate(R.layout.about_fragment, viewGroup, false);
         }
     }
