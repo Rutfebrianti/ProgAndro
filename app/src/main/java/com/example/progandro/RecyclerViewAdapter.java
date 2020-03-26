@@ -25,8 +25,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.movie_item, viewGroup, false);
-        MyViewHolder viewHolder = new MyViewHolder(view);
-        return viewHolder;
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -48,9 +47,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            judul = (TextView) itemView.findViewById(R.id.textViewTitle);
-            descMovie = (TextView) itemView.findViewById(R.id.textViewDesc);
-            image = (ImageView) itemView.findViewById(R.id.imageView);
+            judul = itemView.findViewById(R.id.textViewTitle);
+            descMovie =  itemView.findViewById(R.id.textViewDesc);
+            image = itemView.findViewById(R.id.imageView);
         }
     }
 }
