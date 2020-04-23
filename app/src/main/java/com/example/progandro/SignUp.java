@@ -7,13 +7,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SignUp extends AppCompatActivity {
-    private EditText emailUser,pwd,pwd2;
+    private EditText emailUser;
+    private EditText pwd;
+    private EditText pwd2;
     DatabaseHelper databaseHelper;
     private Button pencetDisini;
+    private FirebaseAuth firebaseAuth;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,50 +45,59 @@ public class SignUp extends AppCompatActivity {
         });
 
         daftar.setOnClickListener(new View.OnClickListener() {
-            //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
-            public void onClick(View view) {
-//                if (checking(String.valueOf(pwd.getText()),String.valueOf(pwd2.getText()),String.valueOf(emailUser.getText()))){
-//                    Intent homepage = new Intent(SignUp.this,HomePageActivity.class);
-//                    finish();
-//                    startActivity(homepage);
-//                }
+            public void onClick(View v) {
+                firebaseAuth = FirebaseAuth.getInstance();
                 String email = emailUser.getText().toString();
-                String password1 = pwd.getText().toString();
-                String password2 = pwd2.getText().toString();
-                if (email.equals("") || password1.equals("") || password2.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Fields Are Empty", Toast.LENGTH_SHORT).show();
+                String password = pwd.getText().toString();
+                String passwordConfirm = pwd2.getText().toString();
+
+                //cek field kosong
+                if (email.isEmpty()) {
+                    emailUser.setError("Please Enter Your Email");
+                    emailUser.requestFocus();
+                } else if (password.isEmpty()) {
+                    pwd.setError("Please Enter Your Password");
+                    pwd.requestFocus();
+                } else if (passwordConfirm.isEmpty()) {
+                    pwd2.setError("Please Enter Your Confirmation Password");
+                    pwd2.requestFocus();
                 }
-                else {
-                    if (password1.equals(password2)) {
-                        Boolean checkEmail = databaseHelper.checkEmail(email);
-                        if (checkEmail == true) {
-                            Boolean insert = databaseHelper.insert(email, password1);
-                            if (insert == true) {
-                                Toast.makeText(getApplicationContext(), "Registered Succesfully", Toast.LENGTH_SHORT).show();
+
+                //jika password konfirmasi tidak sama
+                else if (!password.equals(passwordConfirm)) {
+                    Toast.makeText(SignUp.this, "Incorrect Confirmation Password", Toast.LENGTH_SHORT).show();
+                    emailUser.getText().clear();
+                    pwd.getText().clear();
+                    pwd2.getText().clear();
+                }
+
+                //jika semua memenuhi ketentuan
+                else if (!(password.isEmpty() && email.isEmpty()) && password.equals(passwordConfirm)) {
+                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(SignUp.this, "Check Your Email For Verification", Toast.LENGTH_SHORT).show();
+                                            Intent login = new Intent(SignUp.this, Login.class);
+                                            finish();
+                                            startActivity(login);
+                                        } else {
+                                            Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(SignUp.this, "Sign Up Failed", Toast.LENGTH_SHORT).show();
                             }
                         }
-                        else {
-                            Toast.makeText(getApplicationContext(), "Email Already Exists", Toast.LENGTH_SHORT).show();
-                        }
-                        Toast.makeText(getApplicationContext(), "Silahkan tekan login disini", Toast.LENGTH_SHORT).show();
-                    }
-
+                    });
                 }
             }
         });
     }
-//    private boolean checking(String pass1, String pass2, String email){
-//        if (!pass1.isEmpty() && !email.isEmpty() && !pass1.equals(pass2)){
-//            Toast.makeText(this,"Field Must Not Empty", Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
-//        else if (pass1.isEmpty() || pass2.isEmpty() || email.isEmpty()){
-//            Toast.makeText(this,"Must Fill The Form", Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-//        else {
-//            return false;
-//        }
-//    }
 }
