@@ -13,6 +13,7 @@ public class ViewAdapter extends FragmentPagerAdapter {
         activities = new Fragment[]{
                 new Homepage(),
                 new About(),
+                new TestCamera(),
         };
     }
 
