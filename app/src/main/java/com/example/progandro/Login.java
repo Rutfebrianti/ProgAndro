@@ -97,14 +97,4 @@ public class Login extends AppCompatActivity {
         });
 
     }
-    @Override
-    public void onConfigurationChanged(Configuration configuration) {
-        super.onConfigurationChanged(configuration);
-
-        if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Toast.makeText(this, "Orientasi Horizontal", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Orientasi Vertikal", Toast.LENGTH_SHORT).show();
-        }
-    }
 }
