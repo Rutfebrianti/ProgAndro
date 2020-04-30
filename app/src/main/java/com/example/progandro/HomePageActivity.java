@@ -7,10 +7,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -94,24 +96,35 @@ public class HomePageActivity extends AppCompatActivity {
         notificationManagerCompat.notify(2,notification);
     }
     //Job Schedulling
-    public void scheduleJob(View view){
-        ComponentName componentName = new ComponentName(this, MyJobService.class);
-        JobInfo jobInfo = new JobInfo.Builder(123,componentName)
-                .setPeriodic(15 * 60 * 1000) //set every 15 minutes
-                .build();
+//    public void scheduleJob(View view){
+//        ComponentName componentName = new ComponentName(this, MyJobService.class);
+//        JobInfo jobInfo = new JobInfo.Builder(123,componentName)
+//                .setPeriodic(15 * 60 * 1000) //set every 15 minutes
+//                .build();
+//
+//        JobScheduler jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+//        int resultCode = jobScheduler.schedule(jobInfo);
+//        if(resultCode == JobScheduler.RESULT_SUCCESS){
+//            Log.d(TAG,"Job Schedulling");
+//        }
+//        else{
+//            Log.d(TAG,"Job Schedulling failed");
+//        }
+//    }
+//    public void cancelJob(View view){
+//        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+//        scheduler.cancel(123);
+//        Log.d(TAG,"Job cancelled");
+//    }
 
-        JobScheduler jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
-        int resultCode = jobScheduler.schedule(jobInfo);
-        if(resultCode == JobScheduler.RESULT_SUCCESS){
-            Log.d(TAG,"Job Schedulling");
+    @Override
+    public void onConfigurationChanged(Configuration configuration) {
+        super.onConfigurationChanged(configuration);
+
+        if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this, "Orientasi Horizontal", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Orientasi Vertikal", Toast.LENGTH_SHORT).show();
         }
-        else{
-            Log.d(TAG,"Job Schedulling failed");
-        }
-    }
-    public void cancelJob(View view){
-        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
-        scheduler.cancel(123);
-        Log.d(TAG,"Job cancelled");
     }
 }

@@ -1,9 +1,11 @@
 package com.example.progandro;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +26,18 @@ public  class AboutActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration configuration) {
+        super.onConfigurationChanged(configuration);
+
+        if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this, "Orientasi Horizontal", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Orientasi Vertikal", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
 
 
